@@ -23,6 +23,8 @@
             object_type=object_type
           -%}
         {% if options.row_header %}</th>{% else %}</td>{% endif %}
+        {% else %}
+        <td></td>
         {% endif %}
       {% endfor %}
     </tr>
