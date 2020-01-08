@@ -117,8 +117,12 @@ def scheming_datastore_choices(field):
     if not fields:
         fields = [f['id'] for f in result['fields'] if f['id'] != '_id']
 
-    return [{'value': r[fields[0]], 'label': r[fields[1]]}
-            for r in result['records']]
+    records = []
+    for r in result['records']:
+        entry = {'value': r[fields[0]], 'label': r[fields[1]]}
+        records.append(entry)
+
+    return records
 
 
 def scheming_field_required(field):
