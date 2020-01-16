@@ -34,6 +34,18 @@
       }
     },
     {
+      "preset_name": "weather_autocomplete",
+      "values": {
+        "validators": "ignore_missing tag_string_convert",
+        "classes": ["control-full"],
+        "form_attrs": {
+          "data-module": "autocomplete",
+          "data-module-tags": "",
+          "data-module-source": "/api/3/action/tag_autocomplete?vocabulary_id=weather&query=?"
+        }
+      }
+    },
+    {
       "preset_name": "dataset_organization",
       "values": {
         "validators": "owner_org_validator unicode",
