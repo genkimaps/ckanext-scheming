@@ -1,8 +1,6 @@
 {% extends "package/resource_read.html" %}
 
 {%- set exclude_fields = [
-    'name',
-    'description',
     'url',
     'format',
     ] -%}
@@ -34,15 +32,15 @@
         {%- block resource_format -%}
           <tr>
             <th scope="row">{{ _('Format') }}</th>
-            <td>{{ res.mimetype_inner or res.mimetype or res.format or _('unknown') }}</td>
+            <td>{{ res.format or res.mimetype or res.mimetype_inner or _('unknown') }}</td>
           </tr>
         {%- endblock -%}
-        {%- block resource_license -%}
+        {#  {%- block resource_license -%}
           <tr>
             <th scope="row">{{ _('License') }}</th>
             <td>{% snippet "snippets/license.html", pkg_dict=pkg, text_only=True %}</td>
           </tr>
-        {%- endblock -%}
+        {%- endblock -%}  #}
         {%- block resource_fields -%}
           {%- for field in schema.resource_fields -%}
             {%- if field.field_name not in exclude_fields
