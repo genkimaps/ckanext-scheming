@@ -47,6 +47,7 @@ screen_fmt = logging.Formatter(
 log_file = os.path.join(log_folder, 'scheming_ext.log')
 fh = logging.FileHandler(log_file)
 fh.setFormatter(screen_fmt)
+fh.setLevel(logging.INFO)
 logger.addHandler(fh)
 
 logger.info('Logger for ckanext-scheming')
@@ -231,7 +232,7 @@ class SchemingDatasetsPlugin(p.SingletonPlugin, DefaultDatasetForm,
         package_show actions.
         """
         thing, action_type = action.split('_')
-        logger.info('%s: %s' % (thing, action_type))
+        logger.info('OBJECT: %s: ACTION: %s' % (thing, action_type))
         t = data_dict.get('type')
         if not t or t not in self._schemas:
             return data_dict, {
