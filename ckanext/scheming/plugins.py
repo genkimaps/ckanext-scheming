@@ -50,7 +50,7 @@ fh.setFormatter(screen_fmt)
 fh.setLevel(logging.INFO)
 logger.addHandler(fh)
 
-logger.info('Logger for ckanext-scheming')
+logger.warning('Logger for ckanext-scheming')
 
 
 class _SchemingMixin(object):
@@ -232,7 +232,7 @@ class SchemingDatasetsPlugin(p.SingletonPlugin, DefaultDatasetForm,
         package_show actions.
         """
         thing, action_type = action.split('_')
-        logger.info('OBJECT: %s: ACTION: %s' % (thing, action_type))
+        logger.warning('OBJECT: %s: ACTION: %s' % (thing, action_type))
         t = data_dict.get('type')
         if not t or t not in self._schemas:
             return data_dict, {
