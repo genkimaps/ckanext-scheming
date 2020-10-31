@@ -36,7 +36,20 @@ convert_from_extras = get_converter('convert_from_extras')
 
 DEFAULT_PRESETS = 'ckanext.scheming:presets.json'
 
-log = logging.getLogger(__name__)
+logger = logging.getLogger(__name__)
+
+# Add logging
+plugin_root = os.path.dirname(os.path.realpath(__file__))
+log_folder = os.path.join(plugin_root, 'logs')
+# Logging format
+screen_fmt = logging.Formatter(
+    '%(asctime)s:%(levelname)s:%(module)s(%(lineno)d) - %(message)s')
+log_file = os.path.join(log_folder, 'scheming_ext.log')
+fh = logging.FileHandler(log_file)
+fh.setFormatter(screen_fmt)
+logger.addHandler(fh)
+
+logger.info('Logger for ckanext-scheming')
 
 
 class _SchemingMixin(object):
@@ -218,6 +231,7 @@ class SchemingDatasetsPlugin(p.SingletonPlugin, DefaultDatasetForm,
         package_show actions.
         """
         thing, action_type = action.split('_')
+        logger.info('%s: %s' % (thing, action_type))
         t = data_dict.get('type')
         if not t or t not in self._schemas:
             return data_dict, {
@@ -250,8 +264,12 @@ class SchemingDatasetsPlugin(p.SingletonPlugin, DefaultDatasetForm,
                 # Apply default field values before going through validation. This
                 # deals with fields that have form_snippet set to null, and fields
                 # that have defaults added after initial creation.
-                if data_dict.get(f['field_name']) is None:
+                field_name = f['field_name']
+                field_value = data_dict.get(field_name)
+                if field_value is None:
+
                     default = f.get('default')
+                    logger.warning('%s is empty, using default: %s' % (field_name, default))
                     if default:
                         data_dict[f['field_name']] = (
                             helpers.scheming_render_from_string(

@@ -4,3 +4,6 @@ links/*
 build/*
 dist/*
 .idea
+
+**/logs/*
+!**/logs/.gitkeep
