@@ -385,6 +385,7 @@ def scheming_massage_subfield(field, subfield, index, data):
 
     return sf, data
 
+
 def scheming_composite_load(value):
     if value:
         value = json.loads(value)

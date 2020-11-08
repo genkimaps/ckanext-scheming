@@ -229,9 +229,9 @@ class SchemingDatasetsPlugin(p.SingletonPlugin, DefaultDatasetForm,
     # Use updated validate method
     def validate(self, context, data_dict, schema, action):
         """
-                Validate and convert for package_create, package_update and
-                package_show actions.
-                """
+        Validate and convert for package_create, package_update and
+        package_show actions.
+        """
         thing, action_type = action.split('_')
         t = data_dict.get('type')
         if not t or t not in self._schemas:
@@ -259,61 +259,6 @@ class SchemingDatasetsPlugin(p.SingletonPlugin, DefaultDatasetForm,
                 f, scheming_schema, False)
 
         return navl_validate(data_dict, schema, context)
-
-
-    # def validate(self, context, data_dict, schema, action):
-    #     """
-    #     Validate and convert for package_create, package_update and
-    #     package_show actions.
-    #     """
-    #     thing, action_type = action.split('_')
-    #     logger.warning('OBJECT: %s: ACTION: %s' % (thing, action_type))
-    #     t = data_dict.get('type')
-    #     if not t or t not in self._schemas:
-    #         return data_dict, {
-    #             'type': [
-    #                 "Unsupported dataset type: {t}".format(t=t)
-    #             ]
-    #         }
-    #
-    #     scheming_schema = self._expanded_schemas[t]
-    #
-    #     get_validators = {
-    #         'show': _field_output_validators,
-    #         'create': _field_create_validators,
-    #         'upate': _field_create_validators
-    #     }.get(action_type, _field_validators)
-    #
-    #     fg = (
-    #         (scheming_schema['dataset_fields'], schema),
-    #         (scheming_schema['resource_fields'], schema['resources'])
-    #     )
-    #
-    #     for field_list, destination in fg:
-    #         for f in field_list:
-    #             destination[f['field_name']] = get_validators(
-    #                 f,
-    #                 scheming_schema,
-    #                 f['field_name'] not in schema
-    #             )
-    #
-    #             # Apply default field values before going through validation. This
-    #             # deals with fields that have form_snippet set to null, and fields
-    #             # that have defaults added after initial creation.
-    #             field_name = f['field_name']
-    #             field_value = data_dict.get(field_name)
-    #             if field_value is None:
-    #
-    #                 default = f.get('default')
-    #                 logger.warning('%s is empty, using default: %s' % (field_name, default))
-    #                 if default:
-    #                     data_dict[f['field_name']] = (
-    #                         helpers.scheming_render_from_string(
-    #                             source=default
-    #                         )
-    #                     )
-    #
-    #     return navl_validate(data_dict, schema, context)
 
     def get_actions(self):
         """
