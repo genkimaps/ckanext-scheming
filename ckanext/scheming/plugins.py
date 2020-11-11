@@ -253,7 +253,8 @@ class SchemingDatasetsPlugin(p.SingletonPlugin, DefaultDatasetForm,
                 scheming_schema,
                 f['field_name'] not in schema
             )
-        logger.warning(schema)
+        logger.debug(schema)
+        logger.debug(data_dict)
 
         resource_schema = schema['resources']
         for f in scheming_schema.get('resource_fields', []):
