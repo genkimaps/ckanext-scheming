@@ -234,6 +234,7 @@ class SchemingDatasetsPlugin(p.SingletonPlugin, DefaultDatasetForm,
         """
         thing, action_type = action.split('_')
         t = data_dict.get('type')
+        logger.warning('Thing: %s, Action: %s, Type: %s' % (thing, action_type, t))
         if not t or t not in self._schemas:
             return data_dict, {'type': [
                 "Unsupported dataset type: {t}".format(t=t)]}
@@ -252,6 +253,7 @@ class SchemingDatasetsPlugin(p.SingletonPlugin, DefaultDatasetForm,
                 scheming_schema,
                 f['field_name'] not in schema
             )
+        logger.warning(schema)
 
         resource_schema = schema['resources']
         for f in scheming_schema.get('resource_fields', []):
